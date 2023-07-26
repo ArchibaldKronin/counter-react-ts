@@ -1,0 +1,10 @@
+.counterWindow {
+    padding: 15px 5px;
+    background-color: white;
+    border-radius: 3px;
+    /* box-shadow: 1px 1px 6px black; */
+    border: 1px solid;
+
+    min-width: 200px;
+
+}
