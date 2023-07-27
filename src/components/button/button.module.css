@@ -9,4 +9,5 @@
 
 .button:hover {
     box-shadow: -1px -1px 6px black;
+    cursor: pointer;
 }
