@@ -17,10 +17,12 @@ export const CounterContainer = () => {
     // const decrCounter = (): void => setCounter(counter - 1);
 
     const counter: number = useAppSelector(selectCount);
-    const dispath = useAppDispatch();
+    const dispatch = useAppDispatch();
 
-    // const incrCounterDoesntWork = (): void => dispath(increment); // Его подсказки абсолютно не очевидны
-    const incrCounter = (): ActionCreatorWithoutPayload => dispath(increment);
+    // const incrCounterDoesntWork = (): void => dispath(increment); // Его (TS) подсказки абсолютно не очевидны
+    const incrCounter = (): { payload: undefined, type: "counter/increment" } => dispatch(increment()); // Почему именно так нужно указывать типы?
+
+    // const decrCounter = (): {payload: number, type: "counter/decrement"} => dispatch(decrCounter(1)); 
 
     return (
         <div className={styles.counterContainer}>
