@@ -1,7 +1,11 @@
 import React from 'react';
 import styles from './counter-window.module.css';
 
-export const CounterWindow = ({ children }: { children: number }) => {
+interface CounterWindowProps {
+    children: React.ReactNode;
+}
+
+export const CounterWindow = ({ children }: CounterWindowProps) => {
     return (
         <div className={styles.counterWindow}>
             {children}
