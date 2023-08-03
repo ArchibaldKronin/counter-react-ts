@@ -3,14 +3,24 @@ import { RootState } from "./store";
 
 
 interface TodoSlice {
+    [key: number]: {
+        [key: string]: unknown;
+        id: number;
+        title: string
+    }
+}
+
+export interface TodoElement {
     [key: string]: unknown;
     id: number;
     title: string
 }
 
 const initialState: TodoSlice = {
-    id: 1,
-    title: 'Example task'
+    1: {
+        id: 1,
+        title: 'Example task'
+    }
 }
 
 export const todoSlice = createSlice({
@@ -26,19 +36,21 @@ export const todoSlice = createSlice({
                     }
                 }
             },
-            reducer: (state, action:PayloadAction<TodoSlice>) => (state[action.payload.id] = action.payload)
+            reducer: (state, action: PayloadAction<TodoElement>) => {
+                state[action.payload.id] = action.payload
+            }
+        },
+        deleteTask: (state, action: PayloadAction<number>) => {
+            delete state[action.payload];
+        },
+        editTask: (state, action: PayloadAction<TodoElement>) => {
+            state[action.payload.id] = action.payload
         }
-
-        // deleteTask: (state, action: PayloadAction<string>) => {
-        //     delete state[action.payload];
-        // }
-
-        // editTask: 
 
     }
 })
 
-export const { addTask } = todoSlice.actions;
+export const { addTask, deleteTask, editTask } = todoSlice.actions;
 
 export const selectTodosObj = (state: RootState) => state.todo;
 
