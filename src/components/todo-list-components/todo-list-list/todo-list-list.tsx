@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { deleteTask, selectTodos, selectTodosObj } from '../../../store/todo-slice';
 import { Button } from '../../button/button';
@@ -19,10 +19,17 @@ export const TodoListList = () => {
         dispatch(deleteTask(id));
     }
 
-    const handleEditOpen = (id: number) => {
-        setEditOpenSettings(id);
-        setIsEditOpen(true);
-    }
+    const handleEditOpen = useCallback(
+        (id: number) => {
+            return () => {
+                setEditOpenSettings(id);
+                setIsEditOpen(true);
+            }
+
+
+        },
+        [],
+    )
 
     const handleEditClose = () => {
         setIsEditOpen(false);
@@ -34,8 +41,8 @@ export const TodoListList = () => {
             {todosList.map(todo =>
                 <li className={styles.li} key={todo.id}>
                     {todo.title}
-                    <Button onClick={() => handleEditOpen(todo.id)}>Изменить задачу</Button>
-                    {isEditOpen && editOpenSettings===todo.id && <EditTaskModal todo={todo} onClose={handleEditClose} />}
+                    <Button onClick={handleEditOpen(todo.id)}>Изменить задачу</Button>
+                    {isEditOpen && editOpenSettings === todo.id && <EditTaskModal todo={todo} onClose={handleEditClose} />}
                     {!isEditOpen && <Button onClick={() => handleDeleteClick(todo.id)}>Удалить задачу</Button>}
                 </li>)}
         </ul>

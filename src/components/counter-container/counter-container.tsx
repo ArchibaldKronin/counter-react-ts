@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { CounterWindow } from '../counter-window/counter-window';
 import { ButtonsContainer } from '../buttons-container/buttons-container';
 import { Button } from '../button/button';
@@ -14,9 +14,9 @@ export const CounterContainer = () => {
     const counter: number = useAppSelector(selectCount);
     const dispatch = useAppDispatch();
 
-    const incrCounter = () => dispatch(increment());
+    const incrCounter = useCallback(() => dispatch(increment()), []);
 
-    const decrCounter = () => dispatch(decrement(1));
+    const decrCounter = useCallback(() => dispatch(decrement(1)), []);
 
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
@@ -28,17 +28,22 @@ export const CounterContainer = () => {
         setIsAddModalOpen(false);
     }
 
-    // const handleAddTask = () => dispatch(addTask())
-
-
     return (
         <div className={styles.counterContainer}>
             <CounterWindow>
                 {counter}
             </CounterWindow>
             <ButtonsContainer>
-                <Button onClick={incrCounter}>INCR</Button>
-                <Button onClick={decrCounter}>DECR</Button>
+                {useMemo(() => {
+                    return (
+                        <>
+                            <Button onClick={incrCounter}>INCR</Button>
+                            <Button onClick={decrCounter}>DECR</Button>
+                        </>
+                    )
+                }
+                    , [])}
+
             </ButtonsContainer>
             Задачи:
             <Button onClick={handleAddModalOpen}>Добавить задачу</Button>

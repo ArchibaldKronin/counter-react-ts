@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styles from './button.module.css'
 import type { ActionCreatorWithoutPayload } from '@reduxjs/toolkit'
 
@@ -7,10 +7,10 @@ interface ButtonProps {
     onClick: () => void;
 }
 
-export const Button = ({ children, onClick }: ButtonProps) => {
+export const Button = memo(({ children, onClick }: ButtonProps) => {
     return (
         <div className={styles.button} onClick={onClick}>
             {children}
         </div>
     )
-}
+})

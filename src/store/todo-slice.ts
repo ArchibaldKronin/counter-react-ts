@@ -2,12 +2,8 @@ import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 
 
-interface TodoSlice {
-    [key: number]: {
-        [key: string]: unknown;
-        id: number;
-        title: string
-    }
+interface TodoState {
+    [key: number | string]: TodoElement
 }
 
 export interface TodoElement {
@@ -16,7 +12,7 @@ export interface TodoElement {
     title: string
 }
 
-const initialState: TodoSlice = {
+const initialState: TodoState = {
     1: {
         id: 1,
         title: 'Example task'
