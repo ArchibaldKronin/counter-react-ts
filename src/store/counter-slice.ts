@@ -13,7 +13,7 @@ export const counterSlice = createSlice({
     name: 'counter',
     initialState,
     reducers: {
-        increment: state => { //Почему не спрашивает какого типа аргумент state
+        increment: state => { 
             state.value += 1
         },
         decrement: (state, action: PayloadAction<number>) => {
@@ -24,6 +24,6 @@ export const counterSlice = createSlice({
 
 export const { increment, decrement } = counterSlice.actions;
 
-export const selectCount = (state: RootState) => state.counter.value; // Что такое рутСтейт?
+export const selectCount = (state: RootState) => state.counter.value; 
 
 export default counterSlice.reducer;

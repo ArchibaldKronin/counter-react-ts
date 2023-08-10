@@ -9,6 +9,6 @@ export const store = configureStore({
     }
 })
 
-export type RootState = ReturnType<typeof store.getState>; // ЧТО ЭТО ЗНАЧИТ?
+export type RootState = ReturnType<typeof store.getState>;
 
-export type AppDispatch = typeof store.dispatch; // ЧТО ЭТО ЗНАЧИТ?
+export type AppDispatch = typeof store.dispatch;
